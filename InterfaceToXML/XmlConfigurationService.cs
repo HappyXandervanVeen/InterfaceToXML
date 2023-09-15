@@ -25,6 +25,13 @@ namespace InterfaceToXML
             // Grab all the data from the XML file
             string serviceName = rootElement.Element("ServiceName")?.Value;
             string connectionString = rootElement.Element("ConnectionString")?.Value;
+            LogSettings logSettings = new LogSettings
+            {
+                MinimumLogLevel = rootElement.Element("LogSettings")?.Element("LogMinimumLevel")?.Value,
+                LogStartAndStop = Convert.ToBoolean(rootElement.Element("LogSettings")?.Element("LogStartAndStop")?.Value),
+                LogRunStartAndStop = Convert.ToBoolean(rootElement.Element("LogSettings")?.Element("LogRunStartAndStop")?.Value),
+                LogRunBody = Convert.ToBoolean(rootElement.Element("LogSettings")?.Element("LogRunBody")?.Value)
+            };
 
             // Check if all necessary data is filled in (ServiceName and at least 1 run-scheme are mandatory)
             if (string.IsNullOrWhiteSpace(serviceName))
@@ -35,7 +42,8 @@ namespace InterfaceToXML
             return new Configuration
             {
                 ServiceName = serviceName,
-                ConnectionString = connectionString
+                ConnectionString = connectionString,
+                logSettings = logSettings
             };
         }
         
@@ -77,7 +85,30 @@ namespace InterfaceToXML
                     writer.WriteString(config.ConnectionString);
                     writer.WriteEndElement();
                 }
-            
+
+                // LogSettings
+                writer.WriteStartElement("LogSettings");
+                if (!string.IsNullOrWhiteSpace(config.logSettings.MinimumLogLevel))
+                {
+                    writer.WriteStartElement("LogMinimumLevel");
+                    writer.WriteString(config.logSettings.MinimumLogLevel);
+                    writer.WriteEndElement();
+                }
+                writer.WriteStartElement("LogStartAndStop");
+                writer.WriteString(config.logSettings.LogStartAndStop.ToString());
+                writer.WriteEndElement();
+
+                writer.WriteStartElement("LogRunStartAndStop");
+                writer.WriteString(config.logSettings.LogRunStartAndStop.ToString());
+                writer.WriteEndElement();
+
+                writer.WriteStartElement("LogRunBody");
+                writer.WriteString(config.logSettings.LogRunBody.ToString());
+                writer.WriteEndElement();
+
+                writer.WriteEndElement();
+                // End LogSettings
+
                 writer.WriteEndDocument();
                 writer.Close();
             }

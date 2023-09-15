@@ -26,21 +26,6 @@ namespace InterfaceToXML
             updateConfigsListBox();
         }
         
-        private void saveButton_Click(object sender, EventArgs e)
-        {
-            // // Grab all user input
-            // string serviceName = serviceNameTextBox.Text.ToString();
-            //
-            // // Create a configuration class and fill it in with the input data
-            // Configuration con = new Configuration(serviceName);
-            //
-            // // Create a configuration based on the previous input data
-            // createConfiguration(con);
-            //
-            // // Update the configs listbox
-            // updateConfigsListBox();
-        }
-        
         private void configListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             // If nothing is selected, cancel action
