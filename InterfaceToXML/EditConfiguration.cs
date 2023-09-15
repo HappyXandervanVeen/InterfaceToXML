@@ -19,7 +19,12 @@ namespace InterfaceToXML
             // Create all the form components first
             InitializeComponent();
             
-            // TODO: Fill in combobox with all selecte-able values and set a default selected index
+            // Fill in combobox with all minimum log levels
+            minimalLogLevelComboBox.Items.Add("Debug");
+            minimalLogLevelComboBox.Items.Add("Information");
+            minimalLogLevelComboBox.Items.Add("Warning");
+            minimalLogLevelComboBox.Items.Add("Error");
+            minimalLogLevelComboBox.Items.Add("Critical");
             
             // If we're opening a file, fill the existing data into the form
             if (!string.IsNullOrWhiteSpace(_filePath))
@@ -28,18 +33,32 @@ namespace InterfaceToXML
                 this.config = _config;
                 fillInFormData();
             }
+
+            // Set the button text accordingly
+            if (filePath == null)
+            {
+                saveButton.Text = "Create";
+            }
         }
 
         private void fillInFormData()
         {
             serviceNameTextBox.Text = config.ServiceName;
             connectionStringTextBox.Text = config.ConnectionString;
+            minimalLogLevelComboBox.Text = config.logSettings.MinimumLogLevel;
+            logStartAndStopCheckBox.Checked = config.logSettings.LogStartAndStop;
+            logRunStartAndStopCheckBox.Checked = config.logSettings.LogRunStartAndStop;
+            logRunBodyCheckBox.Checked = config.logSettings.LogRunBody;
         }
 
         private void updateConfig()
         {
             config.ServiceName = serviceNameTextBox.Text;
             config.ConnectionString = connectionStringTextBox.Text;
+            config.logSettings.MinimumLogLevel = minimalLogLevelComboBox.Text;
+            config.logSettings.LogStartAndStop = logStartAndStopCheckBox.Checked;
+            config.logSettings.LogRunStartAndStop = logRunStartAndStopCheckBox.Checked;
+            config.logSettings.LogRunBody = logRunBodyCheckBox.Checked;
         }
 
         private void saveButton_Click(object sender, EventArgs e)
@@ -53,6 +72,7 @@ namespace InterfaceToXML
                 MessageBox.Show("The service name has to be filled in");
                 return;
             }
+
             // TODO: Make a check for atleast one runscheme
             
             
@@ -64,7 +84,19 @@ namespace InterfaceToXML
             {
                 MessageBox.Show(exc.ToString());
             }
-            MessageBox.Show("Configuration has been created!");
+            if (filePath == null)
+            {
+                MessageBox.Show("Configuration has been created!");
+            }
+            else
+            {
+                MessageBox.Show("Configuration has been updated!");
+            }
+        }
+
+        private void deselectMinimalLogLevelButton_Click(object sender, EventArgs e)
+        {
+            minimalLogLevelComboBox.SelectedItem = null;
         }
     }
 }

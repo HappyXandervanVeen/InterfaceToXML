@@ -37,10 +37,12 @@ namespace InterfaceToXML
             this.saveButton = new System.Windows.Forms.Button();
             this.connectionStringTextBox = new System.Windows.Forms.TextBox();
             this.connectionStringLabel = new System.Windows.Forms.Label();
-            this.serviceFailedNotificationEmailsTextBox = new System.Windows.Forms.TextBox();
-            this.serviceFailedNotificationEmailsLabel = new System.Windows.Forms.Label();
             this.minimalLogLevelComboBox = new System.Windows.Forms.ComboBox();
             this.minimalLogLevelLabel = new System.Windows.Forms.Label();
+            this.logStartAndStopCheckBox = new System.Windows.Forms.CheckBox();
+            this.logRunStartAndStopCheckBox = new System.Windows.Forms.CheckBox();
+            this.logRunBodyCheckBox = new System.Windows.Forms.CheckBox();
+            this.deselectMinimalLogLevelButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // serviceNameLabel
@@ -51,6 +53,7 @@ namespace InterfaceToXML
             this.serviceNameLabel.Size = new System.Drawing.Size(264, 22);
             this.serviceNameLabel.TabIndex = 0;
             this.serviceNameLabel.Text = "Service name";
+            this.serviceNameLabel.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
             // serviceNameTextBox
             // 
@@ -86,26 +89,11 @@ namespace InterfaceToXML
             this.connectionStringLabel.Size = new System.Drawing.Size(576, 22);
             this.connectionStringLabel.TabIndex = 3;
             this.connectionStringLabel.Text = "Connection string";
-            // 
-            // serviceFailedNotificationEmailsTextBox
-            // 
-            this.serviceFailedNotificationEmailsTextBox.Location = new System.Drawing.Point(325, 34);
-            this.serviceFailedNotificationEmailsTextBox.Margin = new System.Windows.Forms.Padding(2);
-            this.serviceFailedNotificationEmailsTextBox.Name = "serviceFailedNotificationEmailsTextBox";
-            this.serviceFailedNotificationEmailsTextBox.Size = new System.Drawing.Size(264, 20);
-            this.serviceFailedNotificationEmailsTextBox.TabIndex = 2;
-            // 
-            // serviceFailedNotificationEmailsLabel
-            // 
-            this.serviceFailedNotificationEmailsLabel.Location = new System.Drawing.Point(325, 9);
-            this.serviceFailedNotificationEmailsLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.serviceFailedNotificationEmailsLabel.Name = "serviceFailedNotificationEmailsLabel";
-            this.serviceFailedNotificationEmailsLabel.Size = new System.Drawing.Size(264, 22);
-            this.serviceFailedNotificationEmailsLabel.TabIndex = 4;
-            this.serviceFailedNotificationEmailsLabel.Text = "Service failed notification emails";
+            this.connectionStringLabel.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
             // minimalLogLevelComboBox
             // 
+            this.minimalLogLevelComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.minimalLogLevelComboBox.FormattingEnabled = true;
             this.minimalLogLevelComboBox.Location = new System.Drawing.Point(12, 126);
             this.minimalLogLevelComboBox.Name = "minimalLogLevelComboBox";
@@ -120,16 +108,60 @@ namespace InterfaceToXML
             this.minimalLogLevelLabel.Size = new System.Drawing.Size(262, 22);
             this.minimalLogLevelLabel.TabIndex = 7;
             this.minimalLogLevelLabel.Text = "Minimal Log Level";
+            this.minimalLogLevelLabel.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            // 
+            // logStartAndStopCheckBox
+            // 
+            this.logStartAndStopCheckBox.AutoSize = true;
+            this.logStartAndStopCheckBox.Location = new System.Drawing.Point(12, 153);
+            this.logStartAndStopCheckBox.Name = "logStartAndStopCheckBox";
+            this.logStartAndStopCheckBox.Size = new System.Drawing.Size(234, 17);
+            this.logStartAndStopCheckBox.TabIndex = 8;
+            this.logStartAndStopCheckBox.Text = "Log messages sent at startup and shutdown";
+            this.logStartAndStopCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // logRunStartAndStopCheckBox
+            // 
+            this.logRunStartAndStopCheckBox.AutoSize = true;
+            this.logRunStartAndStopCheckBox.Location = new System.Drawing.Point(12, 176);
+            this.logRunStartAndStopCheckBox.Name = "logRunStartAndStopCheckBox";
+            this.logRunStartAndStopCheckBox.Size = new System.Drawing.Size(286, 17);
+            this.logRunStartAndStopCheckBox.TabIndex = 9;
+            this.logRunStartAndStopCheckBox.Text = "Log messages sent at the beginning and end of the run";
+            this.logRunStartAndStopCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // logRunBodyCheckBox
+            // 
+            this.logRunBodyCheckBox.AutoSize = true;
+            this.logRunBodyCheckBox.Location = new System.Drawing.Point(12, 199);
+            this.logRunBodyCheckBox.Name = "logRunBodyCheckBox";
+            this.logRunBodyCheckBox.Size = new System.Drawing.Size(549, 17);
+            this.logRunBodyCheckBox.TabIndex = 10;
+            this.logRunBodyCheckBox.Text = "Log messages sent during the run (For example, the query being executed or the UR" +
+    "L of an HTTP API request)";
+            this.logRunBodyCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // deselectMinimalLogLevelButton
+            // 
+            this.deselectMinimalLogLevelButton.Location = new System.Drawing.Point(279, 126);
+            this.deselectMinimalLogLevelButton.Name = "deselectMinimalLogLevelButton";
+            this.deselectMinimalLogLevelButton.Size = new System.Drawing.Size(27, 21);
+            this.deselectMinimalLogLevelButton.TabIndex = 11;
+            this.deselectMinimalLogLevelButton.Text = "x";
+            this.deselectMinimalLogLevelButton.UseVisualStyleBackColor = true;
+            this.deselectMinimalLogLevelButton.Click += new System.EventHandler(this.deselectMinimalLogLevelButton_Click);
             // 
             // EditConfiguration
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(600, 366);
+            this.Controls.Add(this.deselectMinimalLogLevelButton);
+            this.Controls.Add(this.logRunBodyCheckBox);
+            this.Controls.Add(this.logRunStartAndStopCheckBox);
+            this.Controls.Add(this.logStartAndStopCheckBox);
             this.Controls.Add(this.minimalLogLevelLabel);
             this.Controls.Add(this.minimalLogLevelComboBox);
-            this.Controls.Add(this.serviceFailedNotificationEmailsTextBox);
-            this.Controls.Add(this.serviceFailedNotificationEmailsLabel);
             this.Controls.Add(this.connectionStringTextBox);
             this.Controls.Add(this.connectionStringLabel);
             this.Controls.Add(this.saveButton);
@@ -141,13 +173,11 @@ namespace InterfaceToXML
             this.Text = "EditConfiguration";
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         private System.Windows.Forms.ComboBox minimalLogLevelComboBox;
         private System.Windows.Forms.Label minimalLogLevelLabel;
-
-        private System.Windows.Forms.TextBox serviceFailedNotificationEmailsTextBox;
-        private System.Windows.Forms.Label serviceFailedNotificationEmailsLabel;
 
         private System.Windows.Forms.TextBox connectionStringTextBox;
         private System.Windows.Forms.Label connectionStringLabel;
@@ -158,5 +188,10 @@ namespace InterfaceToXML
         private System.Windows.Forms.TextBox serviceNameTextBox;
 
         #endregion
+
+        private System.Windows.Forms.CheckBox logStartAndStopCheckBox;
+        private System.Windows.Forms.CheckBox logRunStartAndStopCheckBox;
+        private System.Windows.Forms.CheckBox logRunBodyCheckBox;
+        private System.Windows.Forms.Button deselectMinimalLogLevelButton;
     }
 }
